@@ -1,6 +1,6 @@
 <?php
 
-class Follow extends User{
+class User{
     protected $con;
 
     function __construct($con){
