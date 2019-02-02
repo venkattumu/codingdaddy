@@ -29,7 +29,23 @@ class User{
             header("location: home.php");
         } else {
             return false;
-        }
+        }   
+    }
+
+    public function userData($user_id)
+    {
+        $stmt = $this->pdo->prepare("SELECT * FROM `users` WHERE `user_id` = :user_id");
+        $stmt->bindParam(":user_id", $user_id, PDO::PARAM_INT);
+        $stmt->execute();
+
+        return $stmt->fetch(PDO::FETCH_OBJ);
+    }
+
+    public function logout()
+    {
+        $_SESSION = array();
+        session_destroy();
+        header("location: ../index.php");
     }
     
 }
