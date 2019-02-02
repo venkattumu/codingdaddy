@@ -1,10 +1,10 @@
 <?php
 
 class Follow extends User{
-    protected $con;
+    protected $pdo;
 
-    function __construct($con){
-        $this->con = $con;
+    function __construct($pdo){
+        $this->con = $pdo;
     }
     
 }
