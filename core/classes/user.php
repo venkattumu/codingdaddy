@@ -32,18 +32,18 @@ class User{
         }   
     }
 
-    public function register($email, $password, $screenName)
-    {
-        $stmt = $this->pdo->prepare("INSERT INTO `users` ( `email`, `password`, `screenName`)
-                         VALUES( :email, :password, :screenName) ");
-        $stmt->bindParam(":email", $email, PDO::PARAM_STR);
-        $stmt->bindParam(":password", md5($password), PDO::PARAM_STR);
-        $stmt->bindParam(":screenName", $screenName, PDO::PARAM_STR);
+    // public function register($email, $password, $screenName)
+    // {
+    //     $stmt = $this->pdo->prepare("INSERT INTO `users` ( `email`, `password`, `screenName`)
+    //                      VALUES( :email, :password, :screenName) ");
+    //     $stmt->bindParam(":email", $email, PDO::PARAM_STR);
+    //     $stmt->bindParam(":password", md5($password), PDO::PARAM_STR);
+    //     $stmt->bindParam(":screenName", $screenName, PDO::PARAM_STR);
 
-        $stmt->execute();
-        $user_id = $this->pdo->lastInsertId();
-        $_SESSION['user_id'] = $user_id;
-    }
+    //     $stmt->execute();
+    //     $user_id = $this->pdo->lastInsertId();
+    //     $_SESSION['user_id'] = $user_id;
+    // }
 
     public function userData($user_id)
     {
@@ -68,13 +68,15 @@ class User{
         $sql = "INSERT INTO {$table} ({$columns}) VALUES ({$values}) ";
 
         if($stmt = $this->pdo->prepare($sql)){
-            foreach($fields as $)
+            foreach($fields as $key => $data){
+                $stmt->bindValue(':'.$key, $data); 
+            }
+            $stmt->execute();
+            return $this->pdo->lastInsertId();
         }
 
 
-        $stmt->execute();
-        $user_id = $this->pdo->lastInsertId();
-        $_SESSION['user_id'] = $user_id;
+       
     }
 
     public function checkEmail($email)
