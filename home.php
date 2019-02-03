@@ -3,6 +3,7 @@ include 'core/init.php';
 $user_id = $_SESSION['user_id']; 
 
 $user = $getFromUser->userData($user_id);
+$getFromUser->create('users', array('username' => 'venky'));
 ?>
 
 
