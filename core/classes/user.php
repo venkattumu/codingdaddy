@@ -154,7 +154,7 @@ class User{
         $error = $file['error'];
 
         $ext = explode('.', $filename);
-        $ext = strtolower(($ext));
+        $ext = strtolower(end($ext));
         $allowed_ext = array('jpg', 'png', 'jpeg');
 
         if(in_array($ext, $allowed_ext) === true ){
