@@ -22,7 +22,8 @@ if(isset($_POST['signup'])){
 			if($getFromUser->checkEmail($email) === true){
 				$error = "Email already taken";
 			} else{
-				$getFromUser->create('users', array('email' => $email, 'screenName' => $screenName, 'password' => md5($password), 'profileImage' => 'assets\images\defaultprofileimage.png', 'profileCover' => 'assets\images\defaultCoverImage.png'));
+				$user_id = $getFromUser->create('users', array('email' => $email, 'screenName' => $screenName, 'password' => md5($password), 'profileImage' => 'assets\images\defaultprofileimage.png', 'profileCover' => 'assets\images\defaultCoverImage.png'));
+				$_SESSION['user_id'] = $user_id;
 				header("location: includes/signup.php?step=1");
 			}
 		}
