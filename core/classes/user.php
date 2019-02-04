@@ -96,9 +96,6 @@ class User{
             }
             $stmt->execute();
         }
-
-
-
     }
 
     public function checkUsername($username)
