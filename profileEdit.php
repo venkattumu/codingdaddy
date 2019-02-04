@@ -27,6 +27,12 @@ if(isset($_POST['screenName'])){
         $error = "Name feild can't be blacnk";
     }
 }
+
+if(isset($_FILES['profileImage'])){
+    if(!empty($_FILES['profileImage']['name'][0])){
+        $fileRoot = $getFromUser->uploadImage($_FILES['profileImage']);
+    }
+}
 ?>
 
 
@@ -209,7 +215,7 @@ if(isset($_POST['screenName'])){
 								<label for="profileImage">
 									Upload photo
 								</label>
-								<input id="profileImage" type="file"  name="profileImage"/>
+								<input id="profileImage" type="file" onchange="this.form.submit();"  name="profileImage"/>
 								
 							</li>
 							<li><a href="#">Remove</a></li>
