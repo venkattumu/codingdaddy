@@ -31,6 +31,16 @@ if(isset($_POST['screenName'])){
 if(isset($_FILES['profileImage'])){
     if(!empty($_FILES['profileImage']['name'][0])){
         $fileRoot = $getFromUser->uploadImage($_FILES['profileImage']);
+        $getFromUser->update('users', $user_id, array('profileImage' => $fileRoot));
+        header('location: '.$user->username);
+    }
+}
+
+if(isset($_FILES['profileCover'])){
+    if(!empty($_FILES['profileCover']['name'][0])){
+        $fileRoot = $getFromUser->uploadImage($_FILES['profileCover']);
+        $getFromUser->update('users', $user_id, array('profileCover' => $fileRoot));
+        header('location: '.$user->username);
     }
 }
 ?>
@@ -59,7 +69,7 @@ if(isset($_FILES['profileImage'])){
 			<ul>
 				<li><a href="home.php"><i class="fa fa-home" aria-hidden="true"></i>Home</a></li>
 				<li><a href="i/notifications"><i class="fa fa-bell" aria-hidden="true"></i>Notification</a></li>
-				<l><i class="fa fa-envelope" aria-hidden="true"></i>Messages</li>
+				<li><i class="fa fa-envelope" aria-hidden="true"></i>Messages</li>
 			</ul>
 		</div>
 		<!-- nav left ends-->
@@ -177,7 +187,7 @@ if(isset($_FILES['profileImage'])){
 		</ul>
 		<div class="edit-button">
 			<span>
-				<button class="f-btn" type="button" value="Cancel">Cancel</button>
+				<button class="f-btn" type="button" onclick="window.location.href='<?php echo $user->username; ?>' " value="Cancel">Cancel</button>
 			</span>
 			<span>
 				<input type="submit" id="save" value="Save Changes">
@@ -234,11 +244,15 @@ if(isset($_FILES['profileImage'])){
 
 			<form id="editForm" method="post" enctype="multipart/Form-data">	
 				<div class="profile-name-wrap">
-					<!-- <ul>
+                    <?php 
+                    if(isset($iamgeError)){
+                    echo '<ul>
 	 					 <li class="error-li">
-						 	 <div class="span-pe-error"></div>
+						 	 <div class="span-pe-error">'.$imageError.'</div>
 						 </li>
-					 </ul>  -->
+					 </ul> ';
+                     }
+                     ?>
 					<div class="profile-name">
 						<input type="text" name="screenName" value="<?php echo $user->screenName; ?>"/>
 					</div>
@@ -269,6 +283,16 @@ if(isset($_FILES['profileImage'])){
 									<input type="text" name="website" placeholder="Website" value="<?php echo $user->website; ?>"/>
 								</div>
 							</li>
+
+                              <?php 
+                    if(isset($error)){
+                    echo '
+	 					 <li class="error-li">
+						 	 <div class="span-pe-error">'.$error.'</div>
+						 </li>
+					  ';
+                     }
+                     ?>
 				</form>
                 <script>
                     $('#save').click(function(){
