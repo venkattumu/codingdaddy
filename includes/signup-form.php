@@ -3,7 +3,7 @@ if(isset($_POST['signup'])){
 	$screenName = $_POST['screenName'];
 	$email 		= $_POST['email']; 
 	$password 	= $_POST['password'];
-	// $error 		= '';
+	$error 		= '';
 
 	if(empty($screenName) OR empty($email) OR empty($password)){
 		$error = "All fields are required!!";
