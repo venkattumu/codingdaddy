@@ -4,7 +4,9 @@
         $search = $getFromUser->checkInput($_POST['search']);
         $result = $getFromUser->search($search);
         
-        if(!empty($result)){ 
+        print_r($result);
+
+        if(!empty($result)){
 
         echo '<div class="nav-right-down-wrap"><ul> ';
 
