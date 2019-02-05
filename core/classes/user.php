@@ -3,7 +3,7 @@
 class User{
     protected $con;
 
-    function __construct($pdo){
+    function __construct($pdo){ 
         $this->pdo = $pdo;
     }
     public function checkInput( $var)
@@ -16,7 +16,7 @@ class User{
     }
 
     public function search($search) {
-        $stmt = $this->pdo->prepare("SELECT `user_id`, `username`, `screenName`, `profileImage`, `profileCover` FROM `users` WHERE `username` LIKE ? OR `screenName` LIKE ? ");
+        $stmt = $this->pdo->prepare("SELECT * FROM `users` WHERE `username` LIKE ? OR `screenName` LIKE ? ");
         $stmt->bindValue(1, $search.'%', PDO::PARAM_STR);
         $stmt->bindValue(2, $search.'%', PDO::PARAM_STR);
         $stmt->execute();

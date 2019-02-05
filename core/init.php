@@ -12,5 +12,5 @@ $getFromUser = new User($pdo);
 $getFromFollow = new Follow($pdo);
 $getFromTweet = new Tweet($pdo);
 
-define("BASE_URL", "http://localhost/codingdaddy/codingdaddy/");
+define("BASE_URL", "http://localhost/codingdaddy/");
 ?>
