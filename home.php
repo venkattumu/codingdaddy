@@ -5,6 +5,24 @@ $user = $getFromUser->userData($user_id);
 if($getFromUser->loggedIn() === false){
 	header("location: index.php");
 }
+
+if(isset($_POST['submit'])){
+	$status = $getFromUser->checkInput($_POST['status']);
+	$tweetImage = '';
+	
+	if(!empty($status) or !empty($_FILES['file']['name'][0])){
+		if(!empty($_FILES['file']['name'][0])){
+			$tweetImage = $getFromUser->uploadImage($_FILES['file']);
+		}
+		if(strlen($status) > 140){
+			$error = "the text of your tweet is too long";
+		}
+		$getFromUser->create('tweets',  array('status' => $status, 'tweetBy' => $user_id, 'tweetImage' => $tweetImage, 'postedon' => data('Y-m-d H:i:s') ));
+
+	} else {
+		$error = "Error type or choose Image to tweet";
+	}
+}
 ?>
 <!DOCTYPE HTML> 
  <html>
@@ -142,6 +160,7 @@ if($getFromUser->loggedIn() === false){
 						 	</div>
 						 </div>
 						 <div class="tweet-body">
+
 						 <form method="post" enctype="multipart/form-data">
 							<textarea class="status" name="status" placeholder="Type Something here!" rows="4" cols="50"></textarea>
  						 	<div class="hash-box">
@@ -154,7 +173,15 @@ if($getFromUser->loggedIn() === false){
 						 		<ul>
 						 			<input type="file" name="file" id="file"/>
 						 			<li><label for="file"><i class="fa fa-camera" aria-hidden="true"></i></label>
-						 			<span class="tweet-error"></span>
+						 			<span class="tweet-error">
+										<?php 
+											if(isset($error)){
+												echo $error;
+											} else if(isset($imageError)){
+												echo $imageError;
+											}
+										?>
+									 </span>
 						 			</li>
 						 		</ul>
 						 	</div>
@@ -162,6 +189,7 @@ if($getFromUser->loggedIn() === false){
 						 		<span id="count">140</span>
 						 		<input type="submit" name="tweet" value="tweet"/>
 				 		</form>
+
 						 	</div>
 						 </div>
 					</div>
